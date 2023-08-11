@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <string>
 
+// Testing password for sanity !CANADA!555555!5550AA!BLUEFG!HiJkLM!nOpQrS!TuVwXY!zX
 std::string updatePass(std::string password)
 {
 	std::cout << "Enter your password ";
@@ -119,21 +120,43 @@ bool pokerBestHand(std::string password)
 
 bool halfUpper(const char* char_array) //rounded down
 {
-	int amountNeed = std::strlen(char_array) /2;
+	int amountNeed = std::strlen(char_array) / 2;
 	int amountCurr = 0;
-	for(int i = 0; i < std::strlen(char_array); i++)
-		if(std::isupper(char_array[i]))
+	for (int i = 0; i < std::strlen(char_array); i++)
+		if (std::isupper(char_array[i]))
 			amountCurr++;
-	if(amountCurr == amountNeed)
+	if (amountCurr == amountNeed)
 		return true;
 	else
 		return false;
 }
 
+bool everyLetter(const char* char_array)
+{
+	int maxVal = 5;
+	std::map <char, int> alphabet = { {'a', 0}, {'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0}, {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0}, {'z', 0} };
+	for (int i = 0; i < std::strlen(char_array); i++)
+	{
+		char lowercase = std::tolower(char_array[i]);
+		if (alphabet.find(lowercase) != alphabet.end())
+			alphabet[lowercase]++;
+	}
+
+	for (const auto& pair : alphabet)
+		if (pair.second == 0)
+			return false;
+	return true;
+}
+
+bool oddChar(const char* char_array)
+{
+	if (std::strlen(char_array) % 2 == 0)
+		return true;
+	return false;
+}
+
 void PasswordMaker()
 {
-	//passwordRules["Must have at least one of every letter"] = alphabet;
-	//passwordRules["Must have an odd number of characters"] = oddchar;
 	//passwordRules["The number of characters in your password must be divisible by 7"] = divid7;
 
 	std::cout << "Welcome to Password Maker, have fun :)" << std::endl;
@@ -159,7 +182,8 @@ void PasswordMaker()
 
 		isValid = specialChar(password.c_str()) && hasSubway(password) && digits10(password.c_str()) &&
 			digitsadd45(password.c_str()) && specichar7(password.c_str()) && colourRainbow(password) &&
-			alphalim(password.c_str()) && pokerBestHand(password) && halfUpper(password.c_str());
+			alphalim(password.c_str()) && pokerBestHand(password) && halfUpper(password.c_str()) && 
+			everyLetter(password.c_str()) && oddChar(password.c_str());
 
 		if (!specialChar(char_array))
 			std::cout << "Must have at least one special character." << std::endl;
@@ -179,6 +203,10 @@ void PasswordMaker()
 			std::cout << "Your password must contain the best hand preflop in Texas Holdem." << std::endl;
 		else if (!halfUpper(char_array))
 			std::cout << "Half of all the characters in your password must be uppercase." << std::endl;
+		else if (!everyLetter(char_array))
+			std::cout << "Your password must contain at least one instance of every letter." << std::endl;
+		else if (!oddChar(char_array))
+			std::cout << "Your password needs to have an odd number of characters." << std::endl;
 
 		password = updatePass(password);
 
