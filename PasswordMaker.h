@@ -8,7 +8,8 @@
 #include <algorithm>
 #include <string>
 
-// Testing password for sanity !CANADA!555555!5550AA!BLUEFG!HiJkLM!nOpQrS!TuVwXY!zX
+// Testing password for sanity !CANADA!555555!5550AA!BLUEFG!HiJkLM!nOpQrS!TuVwXY!zXyCvB!zXyCvB
+
 std::string updatePass(std::string password)
 {
 	std::cout << "Enter your password ";
@@ -151,6 +152,13 @@ bool everyLetter(const char* char_array)
 bool oddChar(const char* char_array)
 {
 	if (std::strlen(char_array) % 2 == 0)
+		return false;
+	return true;
+}
+
+bool div7(const char* char_array)
+{
+	if (std::strlen(char_array) % 7 == 0)
 		return true;
 	return false;
 }
@@ -183,7 +191,7 @@ void PasswordMaker()
 		isValid = specialChar(password.c_str()) && hasSubway(password) && digits10(password.c_str()) &&
 			digitsadd45(password.c_str()) && specichar7(password.c_str()) && colourRainbow(password) &&
 			alphalim(password.c_str()) && pokerBestHand(password) && halfUpper(password.c_str()) && 
-			everyLetter(password.c_str()) && oddChar(password.c_str());
+			everyLetter(password.c_str()) && oddChar(password.c_str()) && div7(password.c_str());
 
 		if (!specialChar(char_array))
 			std::cout << "Must have at least one special character." << std::endl;
@@ -207,6 +215,8 @@ void PasswordMaker()
 			std::cout << "Your password must contain at least one instance of every letter." << std::endl;
 		else if (!oddChar(char_array))
 			std::cout << "Your password needs to have an odd number of characters." << std::endl;
+		else if (!div7(char_array))
+			std::cout << "The length of your password must be divisible by 7 with no remainder." << std::endl;
 
 		password = updatePass(password);
 
