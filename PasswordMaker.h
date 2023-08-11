@@ -78,13 +78,38 @@ bool colourRainbow(std::string password)
 	return false;
 }
 
+bool alphalim(const char* char_array)
+{
+	int maxVal = 5;
+	map<char, int> alphabet = {{'a', 0}, {'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0}, {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0}, {'z', 0}};
+	for(int i = 0; i < char_array.size(); i++)
+	{
+		if (alphabet.find(char_array[i]) != alphabet.end()) 
+		{
+            		alphabet[char_array]++;
+			if(alphabet[char_array] > maxVal)
+				return false
+		}
+		
+	}
+	return true
+}
+
 void PasswordMaker()
 {
-	passwordRules["Can't have more than x of any letter"] = charlim;
+	
+	std::cout << "Welcome to Password Maker, have fun :)" << std::endl;
+	std::string password;
+	system("pause");
 
-	char alphabet[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
-
-	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password))
+	std::cout << "Create your password" << std::endl;
+	std::cin >> password;
+	
+	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password) && !alphalim(char_array))
+	{
+		password = updatePass(password);
+		
+		const char* char_array = input.c_str();
 		if(char_array.length() < 8)
 			std::cout << "Must have at least 8 characters." << std::endl;
 		else if(!specialChar(char_array))
@@ -99,16 +124,10 @@ void PasswordMaker()
 			std::cout << "Starting at the first character, ever seventh character must be a special character." << std::endl;
 		else if(!colourRainbow(password))
 			std::cout << "Your password must include a colour from the rainbow." << std::endl;
-
-
-	const char* char_array = input.c_str();
-
-	std::cout << "Welcome to Password Maker, have fun :)" << std::endl;
-	std::string password;
-	system("pause");
-
-	std::cout << "Create your password" << std::endl;
-	std::cin >> password;
+		else if(!alphalim(char_array))
+			std::cout << "Your password may not have more than 5 of any letter." << std::endl;
+	}
+	std::cout << "Your password is valid." << std::endl;
 }
 
 #endif
