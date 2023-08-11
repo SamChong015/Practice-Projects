@@ -9,7 +9,7 @@
 std::string updatePass(std::string password)
 {
 	std::cout << "Enter your password ";
-	std::cin >> password;
+	std::getline(std::cin, password);
 	return password;
 }
 
@@ -124,7 +124,7 @@ void PasswordMaker()
 	system("pause");
 
 	std::cout << "Create your password" << std::endl;
-	std::cin >> password;
+	std::getline(std::cin, password);
 	
 	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password) && !alphalim(char_array) && !bestHand(password) && !halfUpper)
 	{
