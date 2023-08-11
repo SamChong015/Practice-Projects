@@ -24,14 +24,55 @@ bool specialChar(const char* char_array)
 
 bool hasSubway(std::string password)
 {
-	std::string countries[] = {"China", "Canada", "United States", "Japan", "Singapore", "Hong Kong", "Germany", "Taiwan", "United Kingdom", "South Korea", "Russia", "France", "Spain", "India", "Argentina", "Mexico", "Philippines", "New Zealand", "Malaysia", "Brazil", "Australia", "United Arab Emirates",
-"china", "canada", "united states", "japan", "singapore", "hong kong", "germany", "taiwan", "united kingdom", "south korea", "russia", "france", "spain", "india", "argentina", "mexico", "philippines", "new zealand", "malaysia", "brazil", "australia", "united arab emirates",
-"UnitedStates", "HongKong", "UnitedKingdom", "SouthKorea", "NewZealand", "UnitedArabEmirates", "unitedStates", "hongKong", "unitedKingdom", "southKorea", "newZealand", "United ArabEmirates", "UnitedArab Emirates", "Unitedstates", "Hongkong", "Unitedkingdom", "Southkorea", "Newzealand", "united ArabEmirates", "unitedArab Emirates",
-"United arabEmirates", "Unitedarab Emirates", "United states", "Hong kong", "United kingdom", "South korea", "New zealand", "United Arabemirates", "UnitedArab emirates", "united States", "hong Kong", "united Kingdom", "south Korea", "new Zealand",
-"united arabEmirates", "unitedarab Emirates", "united Arabemirates", "unitedArab emirates", "United arabemirates", "Unitedarab emirates"};
+	std::string countries[] = {"china", "canada", "unitedstates", "japan", "singapore", "hongkong", "germany", "taiwan", "unitedkingdom", "southkorea", "russia", "france", "spain", "india", "argentina", "mexico", "philippines", "newzealand", "malaysia", "brazil", "australia", "unitedarabemirates"};
+	//add make all lowercase, remove spaces
 	for(int i = 0; i < countries.size(); i++)
 	{
-		if(s1.find(s2) != string::npos)
+		if(password.find(countries) != string::npos)
+			return true;
+	}
+	return false;
+}
+
+bool digits10(const char* char_array)
+{
+	int count;
+	for(int i = 0; i <char_array.length(); i++)
+		if(char_array[i].isDigit())
+			count++;
+	if(count == 10)
+		return true;
+	else
+		return false;
+}
+
+bool digitsadd45(const char* char_array)
+{
+	int count;
+	for(int i = 0; i <char_array.length(); i++)
+		if(char_array[i].isDigit())
+			count =+ char_array[i];
+	if(count == 45)
+		return true;
+	else
+		return false;
+}
+
+bool specichar7(const char* char_array)
+{
+	for(int i = 0; i < char_array.length(); i+7)
+		if(char_array[i].isDigit() || char_array[i}.isalpha
+			return false;
+	return true;
+}
+
+bool colourRainbow(std::string password)
+{
+	std::string colours[] = {"red", "orange", "yellow", "green", "blue", "indigo", "violet"};
+	//add lowercase, remove spaces
+	for(int i = 0; i < countries.size(); i++)
+	{
+		if(password.find(colours) != string::npos)
 			return true;
 	}
 	return false;
@@ -39,24 +80,26 @@ bool hasSubway(std::string password)
 
 void PasswordMaker()
 {
-	std::map<std::string, std::function<void()>> passwordRules;
-	passwordRules["Must have exactly 10 digits"] = digits10;
-	passwordRules["Digits must add to 45"] = ;
-	passwordRules["Have a word that rhymes with Jake"] = jakeRhyme;
-	passwordRules["Every fifth character must be a special character"] = specialchar5;
-	passwordRules["Include the name of the best Engineering school in Canada"] = engSchool;
-	passwordRules["Must include a colour"] = colour;
-	passwordRules["Can't have more than x of any character"] = charlim;
+	passwordRules["Can't have more than x of any letter"] = charlim;
 
 	char alphabet[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
 
-	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password))
+	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password))
 		if(char_array.length() < 8)
 			std::cout << "Must have at least 8 characters." << std::endl;
 		else if(!specialChar(char_array))
 			std::cout << "Must have at least one special character." << std::endl;
 		else if(!hasSubway(password))
 			std::cout << "Your password must contain a country that has Subway." << std::endl;
+		else if(!digits10(char_array))
+			std::cout << "Your password must contain exactly 10 digits." << std::endl;
+		else if(!digitsadd45(char_array))
+			std::cout << "The digits in your password must add to 45." << std::endl;
+		else if(!specichar7(char_array))
+			std::cout << "Starting at the first character, ever seventh character must be a special character." << std::endl;
+		else if(!colourRainbow(password))
+			std::cout << "Your password must include a colour from the rainbow." << std::endl;
+
 
 	const char* char_array = input.c_str();
 
