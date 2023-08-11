@@ -6,6 +6,7 @@
 #include "RussianRoulette.h"
 #include "PalindromeChecker.h"
 #include "Lettero.h"
+#include "NumberGuesser.h"
 
 void continueRunning(const std::function<void()>& func)
 {
@@ -42,6 +43,7 @@ int main()
     projectDictionary["RussianRoulette"] = RussianRoulette;
     projectDictionary["PalindromeChecker"] = PalindromeChecker;
     projectDictionary["Lettero"] = Lettero;
+    projectDictionary["NumberGuesser"] = NumberGuesser;
 
     std::cout << "Welcome to a compilation of all the projects I have made while slightly bored at work!" << std::endl;
     system("pause");

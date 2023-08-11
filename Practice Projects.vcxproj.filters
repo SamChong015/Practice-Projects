@@ -29,5 +29,8 @@
     <ClInclude Include="Lettero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NumberGuesser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
