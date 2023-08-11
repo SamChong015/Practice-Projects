@@ -1,6 +1,9 @@
 #include <iostream>
-#include "RussianRoulette.h"
 #include <functional>
+
+#include "RussianRoulette.h"
+#include "PalindromeChecker.h"
+#include "Lettero.h"
 
 void continueRunning(const std::function<void()>& func)
 {
@@ -31,5 +34,5 @@ void continueRunning(const std::function<void()>& func)
 }
 int main()
 {
-    continueRunning(RussianRoulette);
+    continueRunning(Lettero);
 }
