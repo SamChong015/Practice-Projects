@@ -44,15 +44,18 @@ int main()
     projectDictionary["Lettero"] = Lettero;
 
     std::cout << "Welcome to a compilation of all the projects I have made while slightly bored at work!" << std::endl;
-
+    system("pause");
 
     bool running = true;
     while (running)
     {
-        std::cout << "Keys in the dictionary:" << std::endl;
+        system("cls");
+
+        std::cout << "Keys in the dictionary:" << std::endl << std::endl;;
         for (const auto& pair : projectDictionary) {
             std::cout << pair.first << std::endl;
         }
+        std::cout << std::endl;
 
         std::cout << "What project do you want to test?" << std::endl;
         std::string key;
