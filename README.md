@@ -3,3 +3,4 @@
 - Russian Roulette
 - Lettero
 - Number Guesser
+- Password Maker
