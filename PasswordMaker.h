@@ -95,6 +95,27 @@ bool alphalim(const char* char_array)
 	return true
 }
 
+bool pokerBestHand(std::string password)
+{
+	std::string bestHand = "AA";
+	if(password.find(bestHand) != string::npos)
+			return true;
+	return false;
+}
+
+bool halfUpper(const char* char_array) //rounded down
+{
+	int amountNeed = char_array.length()/2;
+	int amountCurr = 0;
+	for(int i = 0; i <char_array.length(); i++)
+		if(char_array[i].isUpper())
+			ammountCurr++;
+	if(ammountCurr == amountNeed)
+		return true;
+	else
+		return false;
+}
+
 void PasswordMaker()
 {
 	
@@ -105,7 +126,7 @@ void PasswordMaker()
 	std::cout << "Create your password" << std::endl;
 	std::cin >> password;
 	
-	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password) && !alphalim(char_array))
+	while(char_array.length() < 8 && !specialChar(char_array) && !hasSubway(password) && !digits10(char_array) && !digitsadd45(char_array) && !specichar7(char_array) && !colourRainbow(password) && !alphalim(char_array) && !bestHand(password) && !halfUpper)
 	{
 		password = updatePass(password);
 		
@@ -121,11 +142,15 @@ void PasswordMaker()
 		else if(!digitsadd45(char_array))
 			std::cout << "The digits in your password must add to 45." << std::endl;
 		else if(!specichar7(char_array))
-			std::cout << "Starting at the first character, ever seventh character must be a special character." << std::endl;
+			std::cout << "Starting at the first character, every seventh character must be a special character." << std::endl;
 		else if(!colourRainbow(password))
 			std::cout << "Your password must include a colour from the rainbow." << std::endl;
 		else if(!alphalim(char_array))
 			std::cout << "Your password may not have more than 5 of any letter." << std::endl;
+		else if(!bestHand(char_array))
+			std::cout << "Your password must contain the best hand preflop in Texas Holdem." << std::endl;
+		else if(!halfUpper(char_array)
+			std::cout << "Half of all the characters in your password must be uppercase." << std::endl;
 	}
 	std::cout << "Your password is valid." << std::endl;
 }
