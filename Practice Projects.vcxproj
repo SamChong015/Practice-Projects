@@ -130,6 +130,7 @@
     <ClCompile Include="Practice Projects.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Lettero.h" />
     <ClInclude Include="PalindromeChecker.h" />
     <ClInclude Include="RussianRoulette.h" />
   </ItemGroup>

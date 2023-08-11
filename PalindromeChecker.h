@@ -31,37 +31,16 @@ bool isPalindrome(std::string input)
 
 void PalindromeChecker()
 {
-    bool running = true;
-    while (running)
-    {
-        std::cout << "Enter your word or phrase." << std::endl;
-        std::string input;
-        getline(std::cin, input);
+    std::cout << "Enter your word or phrase." << std::endl;
+    std::string input;
+    getline(std::cin, input);
 
-        std::cout << input << " is ";
-        if (isPalindrome(input) == true)
-            std::cout << "a palindrome." << std::endl;
-        else
-            std::cout << "not a palindrome." << std::endl;
+    std::cout << input << " is ";
+    if (isPalindrome(input) == true)
+        std::cout << "a palindrome." << std::endl;
+    else
+        std::cout << "not a palindrome." << std::endl;
 
-        bool continuing = true;
-        while (continuing)
-        {
-            std::cout << "Do you want to continue? Y/N" << std::endl;
-            std::cin >> input;
-
-            if (input == "N" || input == "n")
-            {
-                running = false;
-                continuing = false;
-            }
-            else if (input == "Y" || input == "y")
-            {
-                running = true;
-                continuing = false;
-            }
-        }
-    }
 }
 
 #endif
