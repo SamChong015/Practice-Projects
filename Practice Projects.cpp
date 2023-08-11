@@ -1,9 +1,9 @@
 
 
 #include <iostream>
-#include "PalindromeChecker.h"
+#include "RussianRoulette.h"
 
 int main()
 {
-    PalindromeChecker();
+    RussianRoulette();
 }
