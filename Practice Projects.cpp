@@ -7,6 +7,7 @@
 #include "PalindromeChecker.h"
 #include "Lettero.h"
 #include "NumberGuesser.h"
+#include "PasswordMaker.h"
 
 void continueRunning(const std::function<void()>& func)
 {
@@ -44,6 +45,7 @@ int main()
     projectDictionary["PalindromeChecker"] = PalindromeChecker;
     projectDictionary["Lettero"] = Lettero;
     projectDictionary["NumberGuesser"] = NumberGuesser;
+    projectDictionary["PasswordMaker"] = PasswordMaker;
 
     std::cout << "Welcome to a compilation of all the projects I have made while slightly bored at work!" << std::endl;
     system("pause");

@@ -133,6 +133,7 @@
     <ClInclude Include="Lettero.h" />
     <ClInclude Include="NumberGuesser.h" />
     <ClInclude Include="PalindromeChecker.h" />
+    <ClInclude Include="PasswordMaker.h" />
     <ClInclude Include="RussianRoulette.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
