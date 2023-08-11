@@ -18,6 +18,13 @@ void RussianRoulette()
     srand(time(NULL));
 
     int roulett = rand() % 6 + 1;
+    for (size_t i = 0; i < 4; i++)
+    {
+        std::chrono::milliseconds duration(1000);
+        std::this_thread::sleep_for(duration);
+        std::cout << " . ";
+    }
+    std::cout << std::endl;
 
     if (roulett == 6)
     {
@@ -30,7 +37,7 @@ void RussianRoulette()
         std::string line;
         while (std::getline(file, line)) { // Read each line from the file
             std::cout << line << std::endl; // Write the line to the console
-            std::chrono::milliseconds duration(1000);
+            std::chrono::milliseconds duration(500);
             std::this_thread::sleep_for(duration);
         }
 
