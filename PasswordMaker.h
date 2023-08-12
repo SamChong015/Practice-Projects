@@ -42,37 +42,37 @@ bool hasSubway(std::string password)
 	return false;
 }
 
-bool digits10(const char* char_array)
+bool needDigits(const char* char_array, int neededDigits)
 {
 	int count = 0;
 	for(int i = 0; i < std::strlen(char_array); i++)
 		if(std::isdigit(char_array[i]))
 			count++;
-	if(count == 10)
+	if(count == neededDigits)
 		return true;
 	else
 		return false;
 }
 
-bool digitsadd45(const char* char_array)
+bool sumDigits(const char* char_array, int sumedDigits)
 {
 	int count = 0;
 	for(int i = 0; i < std::strlen(char_array); i++)
 		if (std::isdigit(char_array[i]))
 			count += char_array[i] - '0';
-	if(count == 45)
+	if(count == sumedDigits)
 		return true;
 	else
 		return false;
 }
 
-bool specichar7(const char* char_array)
+bool specialCharEvery(const char* char_array, int specialCharEveryVal)
 {
 	for (int i = 0; i < std::strlen(char_array); i++)
 	{
 		if (std::isdigit(char_array[i]) || std::isalpha(char_array[i]))
 			return false;
-		i += 6;
+		i += specialCharEveryVal-1;
 	}
 	return true;
 }
@@ -156,17 +156,15 @@ bool oddChar(const char* char_array)
 	return true;
 }
 
-bool div7(const char* char_array)
+bool divisibleBy(const char* char_array, int totalDivisible)
 {
-	if (std::strlen(char_array) % 7 == 0)
+	if (std::strlen(char_array) % totalDivisible == 0)
 		return true;
 	return false;
 }
 
 void PasswordMaker()
 {
-	//passwordRules["The number of characters in your password must be divisible by 7"] = divid7;
-
 	std::cout << "Welcome to Password Maker, have fun :)" << std::endl;
 	std::string password;
 	system("pause");
@@ -177,32 +175,38 @@ void PasswordMaker()
 
 	bool isValid = false;
 
+	int minlength = 8;
+	int neededDigits = 10;
+	int sumedDigits = 45;
+	int specialCharEveryVal = 7;
+	int totalDivisible = 7;
+
 	do
 	{
-		if (std::strlen(password.c_str()) < 8)
+		if (std::strlen(password.c_str()) < minlength)
 		{
-			std::cout << "Must have at least 8 characters." << std::endl;
+			std::cout << "Must have at least " << minlength << " characters." << std::endl;
 
 			password = updatePass(password);
 
 			char_array = password.c_str();
 		}
 
-		isValid = specialChar(password.c_str()) && hasSubway(password) && digits10(password.c_str()) &&
-			digitsadd45(password.c_str()) && specichar7(password.c_str()) && colourRainbow(password) &&
+		isValid = specialChar(password.c_str()) && hasSubway(password) && needDigits(password.c_str(), neededDigits) &&
+			sumDigits(password.c_str(), sumedDigits) && specialCharEvery(password.c_str(), specialCharEveryVal) && colourRainbow(password) &&
 			alphalim(password.c_str()) && pokerBestHand(password) && halfUpper(password.c_str()) && 
-			everyLetter(password.c_str()) && oddChar(password.c_str()) && div7(password.c_str());
+			everyLetter(password.c_str()) && oddChar(password.c_str()) && divisibleBy(password.c_str(), totalDivisible);
 
 		if (!specialChar(char_array))
 			std::cout << "Must have at least one special character." << std::endl;
 		else if (!hasSubway(password))
 			std::cout << "Your password must contain a country that has Subway." << std::endl;
-		else if (!digits10(char_array))
-			std::cout << "Your password must contain exactly 10 digits." << std::endl;
-		else if (!digitsadd45(char_array))
-			std::cout << "The digits in your password must add to 45." << std::endl;
-		else if (!specichar7(char_array))
-			std::cout << "Starting at the first character, every seventh character must be a special character." << std::endl;
+		else if (!needDigits(char_array))
+			std::cout << "Your password must contain exactly " << neededDigits << " digits." << std::endl;
+		else if (!sumDigits(char_array))
+			std::cout << "The digits in your password must add to " << sumedDigits << "." << std::endl;
+		else if (!specialCharEvery(char_array))
+			std::cout << "Starting at the first character, every " << specialCharEveryVal << " character must be a special character." << std::endl;
 		else if (!colourRainbow(password))
 			std::cout << "Your password must include a colour from the rainbow." << std::endl;
 		else if (!alphalim(char_array))
@@ -215,8 +219,8 @@ void PasswordMaker()
 			std::cout << "Your password must contain at least one instance of every letter." << std::endl;
 		else if (!oddChar(char_array))
 			std::cout << "Your password needs to have an odd number of characters." << std::endl;
-		else if (!div7(char_array))
-			std::cout << "The length of your password must be divisible by 7 with no remainder." << std::endl;
+		else if (!divisibleBy(char_array))
+			std::cout << "The length of your password must be divisible by " << totalDivisible << " with no remainder." << std::endl;
 
 		password = updatePass(password);
 
