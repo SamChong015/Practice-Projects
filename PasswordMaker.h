@@ -7,8 +7,8 @@
 #include <cctype>
 #include <algorithm>
 #include <string>
-
-// Testing password for sanity !CANADA!555555!5550AA!BLUEFG!HiJkLM!nOpQrS!TuVwXY!zXyCvB!zXyCvB
+#include <time.h> 
+#include <random>
 
 std::string updatePass(std::string password)
 {
@@ -54,6 +54,65 @@ bool needDigits(const char* char_array, int neededDigits)
 		return false;
 }
 
+std::string genCapatcha()
+{
+	srand(time(NULL));
+
+	std::string cApatcha;
+
+	std::mt19937 up(std::random_device{}());
+	std::uniform_int_distribution<int> upCase(65, 90); // ASCII range for uppercase letters
+
+	std::mt19937 low(std::random_device{}());
+	std::uniform_int_distribution<int> lowCase(97, 122); // ASCII range for lowercase letters
+
+	std::string specialChars = "!@#$%^&*()_+{}[]|;:,.<>?";
+
+	std::mt19937 spec(std::random_device{}());
+	std::uniform_int_distribution<int> specCase(0, specialChars.size() - 1);
+
+	int length = rand() % 10 + 5;
+	for (int i = 0; i < length; i++)
+	{
+		srand(time(NULL));
+		int decide = rand() % 4 + 1;
+		int num = rand() % 9 + 0;
+		switch (decide)
+		{
+		case 1:
+
+			cApatcha.push_back(static_cast<char>(upCase(up)));
+
+			break;
+
+		case 2:
+
+			cApatcha.push_back(static_cast<char>(lowCase(low)));
+
+			break;
+		case 3:
+
+			cApatcha += std::to_string(num);
+
+			break;
+
+		case 4:
+
+			cApatcha.push_back(specialChars[specCase(spec)]);
+			break;
+		}
+	}
+
+	return cApatcha;
+}
+
+bool capatcha(std::string password, std::string cApatcha)
+{
+	if (password.find(cApatcha) != std::string::npos)
+		return true;
+	return false;
+}
+
 bool sumDigits(const char* char_array, int sumedDigits)
 {
 	int count = 0;
@@ -93,9 +152,8 @@ bool colourRainbow(std::string password)
 	return false;
 }
 
-bool alphalim(const char* char_array)
+bool alphalim(const char* char_array, int maxVal)
 {
-	int maxVal = 5;
 	std::map <char, int> alphabet = {{'a', 0}, {'b', 0}, {'c', 0}, {'d', 0}, {'e', 0}, {'f', 0}, {'g', 0}, {'h', 0}, {'i', 0}, {'j', 0}, {'k', 0}, {'l', 0}, {'m', 0}, {'n', 0}, {'o', 0}, {'p', 0}, {'q', 0}, {'r', 0}, {'s', 0}, {'t', 0}, {'u', 0}, {'v', 0}, {'w', 0}, {'x', 0}, {'y', 0}, {'z', 0}};
 	for(int i = 0; i < std::strlen(char_array); i++)
 	{
@@ -180,6 +238,8 @@ void PasswordMaker()
 	int sumedDigits = 45;
 	int specialCharEveryVal = 7;
 	int totalDivisible = 7;
+	int maxVal = 5;
+	std::string cApatcha = genCapatcha();
 
 	do
 	{
@@ -193,24 +253,29 @@ void PasswordMaker()
 		}
 
 		isValid = specialChar(password.c_str()) && hasSubway(password) && needDigits(password.c_str(), neededDigits) &&
-			sumDigits(password.c_str(), sumedDigits) && specialCharEvery(password.c_str(), specialCharEveryVal) && colourRainbow(password) &&
-			alphalim(password.c_str()) && pokerBestHand(password) && halfUpper(password.c_str()) && 
+			sumDigits(password.c_str(), sumedDigits) && capatcha(password, cApatcha) && specialCharEvery(password.c_str(), specialCharEveryVal) && colourRainbow(password) &&
+			alphalim(password.c_str(), maxVal) && pokerBestHand(password) && halfUpper(password.c_str()) && 
 			everyLetter(password.c_str()) && oddChar(password.c_str()) && divisibleBy(password.c_str(), totalDivisible);
 
 		if (!specialChar(char_array))
 			std::cout << "Must have at least one special character." << std::endl;
 		else if (!hasSubway(password))
 			std::cout << "Your password must contain a country that has Subway." << std::endl;
-		else if (!needDigits(char_array))
+		else if (!needDigits(char_array, neededDigits))
 			std::cout << "Your password must contain exactly " << neededDigits << " digits." << std::endl;
-		else if (!sumDigits(char_array))
+		else if (!sumDigits(char_array, sumedDigits))
 			std::cout << "The digits in your password must add to " << sumedDigits << "." << std::endl;
-		else if (!specialCharEvery(char_array))
-			std::cout << "Starting at the first character, every " << specialCharEveryVal << " character must be a special character." << std::endl;
+		else if (!capatcha(password, cApatcha))
+		{
+			cApatcha = genCapatcha();
+			std::cout << "Your password must contain the following cApatcha " << cApatcha << std::endl;
+		}
+		else if (!specialCharEvery(char_array, specialCharEveryVal))
+			std::cout << "Starting with the first character, every " << specialCharEveryVal << " characters must be a special character." << std::endl;
 		else if (!colourRainbow(password))
 			std::cout << "Your password must include a colour from the rainbow." << std::endl;
-		else if (!alphalim(char_array))
-			std::cout << "Your password may not have more than 5 of any letter." << std::endl;
+		else if (!alphalim(char_array, maxVal))
+			std::cout << "Your password may not have more than " << maxVal << " of any letter." << std::endl;
 		else if (!pokerBestHand(char_array))
 			std::cout << "Your password must contain the best hand preflop in Texas Holdem." << std::endl;
 		else if (!halfUpper(char_array))
@@ -219,7 +284,7 @@ void PasswordMaker()
 			std::cout << "Your password must contain at least one instance of every letter." << std::endl;
 		else if (!oddChar(char_array))
 			std::cout << "Your password needs to have an odd number of characters." << std::endl;
-		else if (!divisibleBy(char_array))
+		else if (!divisibleBy(char_array, totalDivisible))
 			std::cout << "The length of your password must be divisible by " << totalDivisible << " with no remainder." << std::endl;
 
 		password = updatePass(password);
